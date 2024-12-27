@@ -3,8 +3,9 @@ import streamlit as st
 from pdf2image import convert_from_path
 from PIL import Image
 import tempfile
+from config import APP_SETTINGS, PDF_SETTINGS, DIRECTORIES
 
-def pdf_to_jpg(pdf_path, output_folder, dpi=300, poppler_path=r'C:\poppler-24.08.0\Library\bin'):
+def pdf_to_jpg(pdf_path, output_folder=DIRECTORIES["output"], dpi=PDF_SETTINGS["dpi"], poppler_path=PDF_SETTINGS["poppler_path"]):
     """
     Converts each page of the given PDF to a JPG image.
     """
@@ -31,13 +32,13 @@ def pdf_to_jpg(pdf_path, output_folder, dpi=300, poppler_path=r'C:\poppler-24.08
 
 # Streamlit Web App
 def main():
-    st.set_page_config(page_title="PDF to JPG Converter", page_icon="📄", layout="wide")
+    st.set_page_config(**APP_SETTINGS)
     
     # Load custom CSS
     with open("style.css") as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     
-    st.title("PDF to JPG Converter")
+    st.title(APP_SETTINGS["page_title"])
     st.write("Upload a PDF file and convert its pages to high-quality JPG images.")
 
     col1, col2 = st.columns([2, 1])
