@@ -7,14 +7,17 @@ BASE_DIR = Path(__file__).resolve().parent
 # Application settings
 APP_SETTINGS = {
     "page_title": "PDF to JPG Converter",
-    "page_icon": "📄",
+    "page_icon": "",
     "layout": "wide"
 }
+
+# Detect OS and set appropriate Poppler path
+DEFAULT_POPPLER_PATH = r'C:\poppler-24.08.0\Library\bin' if os.name == 'nt' else '/usr/bin'
 
 # PDF conversion settings
 PDF_SETTINGS = {
     "dpi": 300,
-    "poppler_path": os.getenv("POPPLER_PATH", "/usr/local/bin"),  # Default Linux path, overridable by env var
+    "poppler_path": os.getenv("POPPLER_PATH", DEFAULT_POPPLER_PATH),  # Use Windows path by default on Windows
 }
 
 # Directory settings
